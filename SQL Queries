@@ -1,0 +1,115 @@
+# Data overview for 'film' table
+SELECT *
+FROM film
+ORDER BY title ASC, release_year DESC, rental_rate DESC;
+
+# Revenues by film category
+SELECT c.name, SUM(p.amount) AS total_revenue
+FROM category c
+JOIN film_category f ON c.category_id = f.category_id
+JOIN inventory i ON f.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+JOIN payment p ON r.rental_id = p.rental_id
+GROUP BY c.name
+ORDER BY total_revenue DESC;
+
+# Revenues by film language
+SELECT l.name, SUM(p.amount) AS total_revenue
+FROM language l
+JOIN film f ON l.language_id = f.language_id
+JOIN inventory i ON f.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+JOIN payment p ON r.rental_id = p.rental_id
+GROUP BY l.name
+ORDER BY total_revenue DESC;
+
+# Revenues by rating
+SELECT f.rating, SUM(p.amount) AS total_revenue
+FROM film f
+JOIN inventory i ON f.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+JOIN payment p ON r.rental_id = p.rental_id
+GROUP BY f.rating
+ORDER BY total_revenue DESC;
+
+# Top-10 films
+SELECT f.title, SUM(p.amount) AS total_revenue
+FROM film f
+JOIN inventory i ON f.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+JOIN payment p ON r.rental_id = p.rental_id
+GROUP BY f.title
+ORDER BY total_revenue DESC
+LIMIT 10;
+
+# Botom 10 films
+SELECT f.title, SUM(p.amount) AS total_revenue
+FROM film f
+JOIN inventory i ON f.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+JOIN payment p ON r.rental_id = p.rental_id
+GROUP BY f.title
+ORDER BY total_revenue ASC
+LIMIT 10;
+
+# min max avg rental
+SELECT 
+MIN(rental_duration) AS min_rental_duration,
+MAX(rental_duration) AS max_rental_duration,
+AVG(rental_duration) AS avg_rental_duration,
+MIN(rental_rate) AS min_rental_rate,
+MAX(rental_rate) AS max_rental_rate,
+AVG(rental_rate) AS avg_rental_rate,
+MIN(length) AS min_length,
+MAX(length) AS max_length,
+AVG(length) AS avg_length,
+MIN(replacement_cost) AS min_replacement_cost,
+MAX(replacement_cost) AS max_replacement_cost,
+AVG(replacement_cost) AS avg_replacement_cost
+FROM film;
+
+# Customer cities
+SELECT A.country, B.city, COUNT(DISTINCT D.customer_id) AS customer_count
+FROM country A
+JOIN city B ON A.country_id = B.country_id
+JOIN address C ON B.city_id = C.city_id
+JOIN customer D ON C.address_id = D.address_id
+GROUP BY A.country, B.city
+ORDER BY customer_count DESC;
+
+# Top-10 countries
+SELECT A.country, COUNT(distinct D.customer_id) as customer_count
+FROM country A
+JOIN city B ON A.country_id = B.country_id
+JOIN address C ON B.city_id = C.city_id
+JOIN customer D ON C.address_id = D.address_id
+GROUP BY A.country
+ORDER BY customer_count DESC;
+
+# Customer lifetime value
+SELECT
+    D.customer_id,
+    D.first_name,
+    D.last_name,
+    A.country,
+    B.city,
+    SUM(P.amount) AS total_amount_paid
+FROM country A
+JOIN city B ON A.country_id = B.country_id
+JOIN address C ON B.city_id = C.city_id
+JOIN customer D ON C.address_id = D.address_id
+JOIN payment P ON D.customer_id = P.customer_id
+GROUP BY D.customer_id, D.first_name, D.last_name, A.country, B.city
+ORDER BY total_amount_paid DESC
+LIMIT 10;
+
+# Revenues by country
+SELECT country, 
+COUNT(DISTINCT A.customer_id) AS customer_count,
+SUM(amount) AS total_payment 
+FROM customer A 
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_id = C.city_id 
+INNER JOIN country D ON C.country_ID = D.country_ID
+INNER JOIN payment E ON a.customer_id = E.customer_id 
+GROUP BY country;
