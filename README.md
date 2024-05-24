@@ -15,6 +15,6 @@ How can Rockbuster Stealth LLC, a film rental company with a history of a global
 The dataset containts information about Rockbuster’s film inventory, customers, payments, stores, staff, films, actors, rental history and addresses, loaded into a PostgreSQL database. 
 
 ## Project deliverables
-SQL queries to answer management questions
+[SQL queries] (https://github.com/MarynaBotas/CF-Rockbuster/blob/main/SQL%20Queries) to answer management questions
 Visualizations in Tableau Public
 Final Report PDF
