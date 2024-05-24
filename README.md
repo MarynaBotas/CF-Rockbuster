@@ -6,15 +6,22 @@ How can Rockbuster Stealth LLC, a film rental company with a history of a global
 
 ## Key Questions
 •	Which movies contributed the most/least to revenue gain?
+
 •	What was the average rental duration for all videos?
+
 •	Which countries are Rockbuster customers based in?
+
 •	Where are customers with a high lifetime value based?
+
 •	Do sales figures vary between geographic regions?
 
 ## Data
 The dataset containts information about Rockbuster’s film inventory, customers, payments, stores, staff, films, actors, rental history and addresses, loaded into a PostgreSQL database. 
+[Data Dictionary](https://github.com/MarynaBotas/CF-Rockbuster/blob/main/Rockbuster_Data_Dictionary.pdf)
 
 ## Project deliverables
-[SQL queries] (https://github.com/MarynaBotas/CF-Rockbuster/blob/main/SQL%20Queries) to answer management questions
-Visualizations in Tableau Public
-Final Report PDF
+•	[SQL queries](https://github.com/MarynaBotas/CF-Rockbuster/blob/main/SQL%20Queries) to answer management questions
+
+•	Visualizations in [Tableau Public](https://public.tableau.com/app/profile/maryna.botas/viz/Rockbuster_17083124349270/Geography)
+
+•	[Final Report PDF](https://github.com/MarynaBotas/CF-Rockbuster/blob/main/Rockbuster_Final_Project.pdf)
